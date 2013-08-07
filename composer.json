@@ -15,6 +15,9 @@
         "php": ">=5.3.8",
         "guzzle/http": "~3.0"
     },
+    "require-dev": {
+        "symfony/debug" : "~2.3"
+    },
     "autoload": {
         "psr-0": { "Mailjet\\": "src/" }
     }
