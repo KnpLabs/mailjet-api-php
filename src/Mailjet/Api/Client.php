@@ -5,6 +5,7 @@ namespace Mailjet\Api;
 use Guzzle\Http\Client as HttpClient;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
+use Mailjet\Exception\ApiServerException;
 
 class Client
 {
@@ -192,9 +193,15 @@ class Client
     /**
      * @param  Response     $response
      * @return string|array
+     *
+     * @throws ApiServerException
      */
     private function processResponse(Response $response)
     {
+        if (!$response->isSuccessful()) {
+            throw new ApiServerException($response->getMessage(), $response->getStatusCode());
+        }
+
         if (self::FORMAT_ARRAY === $this->outputFormat) {
             $data = $response->json();
 
