@@ -42,15 +42,14 @@ class Client
      * If array is set as output format (as by default), then response is parsed
      * Otherwise it's returned as a raw string
      *
-     * @param $method    for list of methods @see \Mailjet\Api\Methods
-     * @param $function  for list of functions @see \Mailjet\Api\Functions
+     * @param $apiQuery For list of available queries @see \Mailjet\Api\RequestApi
      * @param array $options
      *
      * @return string|array
      */
-    public function get($method, $function, $options = array())
+    public function get($apiQuery, $options = array())
     {
-        $request = $this->getApi()->get($method . ucfirst($function));
+        $request = $this->getApi()->get($apiQuery);
         $request->setAuth($this->apiKey, $this->secretKey);
 
         $query = $request->getQuery();
@@ -64,7 +63,8 @@ class Client
         if (self::FORMAT_ARRAY === $this->outputFormat) {
             $data = $response->json();
 
-            return $data[$function];
+            // data format: array(status => status, function => data)
+            return array_pop($data);
         }
 
         return $response->getBody(true);
