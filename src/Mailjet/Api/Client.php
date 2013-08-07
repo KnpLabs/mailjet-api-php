@@ -2,9 +2,12 @@
 
 namespace Mailjet\Api;
 
+use Guzzle\Http\Client as HttpClient;
+
 class Client
 {
-    const API_VERSION = '0.1';
+    const API_VERSION  = '0.1';
+    const API_BASE_URL = 'api.mailjet.com';
 
     const DEBUG_NONE   = 0;
     const DEBUG_ERRORS = 1;
@@ -15,21 +18,69 @@ class Client
     const FORMAT_HTML      = 'html';
     const FORMAT_JSON      = 'json';
     const FORMAT_SERIALIZE = 'serialize';
+    const FORMAT_ARRAY     = 'array';
 
     const CONNECTION_NORMAL = 'http';
     const CONNECTION_SECURE = 'https';
 
+    private $apiClient;
+
     private $apiKey;
     private $secretKey;
     private $debugMode      = self::DEBUG_NONE;
-    private $version        = self::API_VERSION;
-    private $outputFormat   = self::FORMAT_JSON;
+    private $outputFormat   = self::FORMAT_ARRAY;
     private $connectionMode = self::CONNECTION_SECURE;
 
     public function __construct($apiKey, $secretKey)
     {
         $this->apiKey    = $apiKey;
         $this->secretKey = $secretKey;
+    }
+
+    /**
+     * @param $method
+     * @param $function
+     * @param array $options
+     *
+     * @return string|array
+     */
+    public function get($method, $function, $options = array())
+    {
+        $request = $this->getApi()->get($method . ucfirst($function));
+        $request->setAuth($this->apiKey, $this->secretKey);
+
+        $query = $request->getQuery();
+        $query->add('output', $this->getRealOutputFormat());
+        foreach ($options as $option => $value) {
+            $query->add($option, $value);
+        }
+
+        $response = $request->send();
+
+        if (self::FORMAT_ARRAY === $this->outputFormat) {
+            $data = $response->json();
+
+            return $data[$function];
+        }
+
+        return $response->getBody(true);
+    }
+
+    public function post($method, $function)
+    {
+        // placeholder method for POST requests
+    }
+
+    /**
+     * @return \Guzzle\Http\Client
+     */
+    public function getApi()
+    {
+        if (!$this->apiClient) {
+            $this->apiClient = new HttpClient(sprintf('%s://%s/%s', $this->connectionMode, self::API_BASE_URL, self::API_VERSION));
+        }
+
+        return $this->apiClient;
     }
 
     public function setConnectionMode($connectionMode)
@@ -78,7 +129,8 @@ class Client
             self::FORMAT_XML,
             self::FORMAT_HTML,
             self::FORMAT_JSON,
-            self::FORMAT_SERIALIZE
+            self::FORMAT_SERIALIZE,
+            self::FORMAT_ARRAY
         ))) {
             throw new \InvalidArgumentException('Unsupported output format: ' . $outputFormat);
         }
@@ -88,20 +140,22 @@ class Client
         return $this;
     }
 
-    public function getOutputFormat()
+    /**
+     * Fetch actual output format that will be sent with request
+     *
+     * @return string
+     */
+    public function getRealOutputFormat()
     {
+        if (self::FORMAT_ARRAY === $this->outputFormat) {
+            return self::FORMAT_JSON;
+        }
+
         return $this->outputFormat;
     }
 
-    public function setVersion($version)
+    public function getOutputFormat()
     {
-        $this->version = $version;
-
-        return $this;
-    }
-
-    public function getVersion()
-    {
-        return $this->version;
+        return $this->outputFormat;
     }
 }
