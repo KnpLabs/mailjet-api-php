@@ -1,0 +1,21 @@
+{
+    "name": "knplabs/mailjet-api-php",
+    "type": "library",
+    "description": "Mailjet PHP API client",
+    "homepage": "https://github.com/KnpLabs/mailjet-api-php",
+    "keywords": ["mailjet", "api"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "KnpLabs Team",
+            "homepage": "http://knplabs.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.8",
+        "guzzle/http": "~3.0"
+    },
+    "autoload": {
+        "psr-0": { "Mailjet\\Api\\": "src/" }
+    }
+}
