@@ -38,8 +38,12 @@ class Client
     }
 
     /**
-     * @param $method
-     * @param $function
+     * Method for issuing low level API requests
+     * If array is set as output format (as by default), then response is parsed
+     * Otherwise it's returned as a raw string
+     *
+     * @param $method    for list of methods @see \Mailjet\Api\Methods
+     * @param $function  for list of functions @see \Mailjet\Api\Functions
      * @param array $options
      *
      * @return string|array
