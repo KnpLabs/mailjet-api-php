@@ -3,6 +3,8 @@
 namespace Mailjet\Api;
 
 use Guzzle\Http\Client as HttpClient;
+use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\Response;
 
 class Client
 {
@@ -38,7 +40,7 @@ class Client
     }
 
     /**
-     * Method for issuing low level API requests
+     * Method for issuing low level API GET requests
      * If array is set as output format (as by default), then response is parsed
      * Otherwise it's returned as a raw string
      *
@@ -46,45 +48,42 @@ class Client
      * @param array $options
      *
      * @return string|array
+     *
+     * @throws \InvalidArgumentException
      */
     public function get($apiQuery, $options = array())
     {
-        $request = $this->getApi()->get($apiQuery);
-        $request->setAuth($this->apiKey, $this->secretKey);
-
-        $query = $request->getQuery();
-        $query->add('output', $this->getRealOutputFormat());
-        foreach ($options as $option => $value) {
-            $query->add($option, $value);
+        if (!RequestApi::isGet($apiQuery)) {
+            throw new \InvalidArgumentException('Unsupported API query for GET method: ' . $apiQuery);
         }
+
+        $request = $this->getApi()->get($apiQuery);
+
+        $this->prepareRequest($request, $options);
 
         $response = $request->send();
 
-        if (self::FORMAT_ARRAY === $this->outputFormat) {
-            $data = $response->json();
-
-            // data format: array(status => status, function => data)
-            return array_pop($data);
-        }
-
-        return $response->getBody(true);
-    }
-
-    public function post($method, $function)
-    {
-        // placeholder method for POST requests
+        return $this->processResponse($response);
     }
 
     /**
-     * @return \Guzzle\Http\Client
+     * Method for issuing low level API POST requests
+     *
+     * @see Client::get()
      */
-    public function getApi()
+    public function post($apiQuery, $options = array())
     {
-        if (!$this->apiClient) {
-            $this->apiClient = new HttpClient(sprintf('%s://%s/%s', $this->connectionMode, self::API_BASE_URL, self::API_VERSION));
+        if (!RequestApi::isPost($apiQuery)) {
+            throw new \InvalidArgumentException('Unsupported API query for POST method: ' . $apiQuery);
         }
 
-        return $this->apiClient;
+        $request = $this->getApi()->post($apiQuery);
+
+        $this->prepareRequest($request, $options);
+
+        $response = $request->send();
+
+        return $this->processResponse($response);
     }
 
     public function setConnectionMode($connectionMode)
@@ -161,5 +160,48 @@ class Client
     public function getOutputFormat()
     {
         return $this->outputFormat;
+    }
+
+    /**
+     * @return \Guzzle\Http\Client
+     */
+    private function getApi()
+    {
+        if (!$this->apiClient) {
+            $this->apiClient = new HttpClient(sprintf('%s://%s/%s', $this->connectionMode, self::API_BASE_URL, self::API_VERSION));
+        }
+
+        return $this->apiClient;
+    }
+
+    /**
+     * @param Request $request
+     * @param array   $options
+     */
+    private function prepareRequest(Request $request, $options = array())
+    {
+        $request->setAuth($this->apiKey, $this->secretKey);
+
+        $query = $request->getQuery();
+        $query->add('output', $this->getRealOutputFormat());
+        foreach ($options as $option => $value) {
+            $query->add($option, $value);
+        }
+    }
+
+    /**
+     * @param  Response     $response
+     * @return string|array
+     */
+    private function processResponse(Response $response)
+    {
+        if (self::FORMAT_ARRAY === $this->outputFormat) {
+            $data = $response->json();
+
+            // data format: array(status => status, function => data)
+            return array_pop($data);
+        }
+
+        return $response->getBody(true);
     }
 }
