@@ -1,6 +1,6 @@
 # PHP wrapper for Mailjet API
 
-Uses [Mailjet API](http://www.mailjet.com/docs/api). The object API is very similar to the RESTful API.
+Based on [Mailjet API](http://www.mailjet.com/docs/api).
 
 ## Features
 
