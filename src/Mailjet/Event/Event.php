@@ -6,20 +6,25 @@ use Mailjet\Event\Data\EventData;
 
 abstract class Event implements EventInterface
 {
-    protected $time;
+    protected $data;
 
     public function __construct(array $data)
     {
-        $this->time = $data[EventData::DATA_TIME];
-
-        $this->process($data);
+        $this->data = $data;
     }
 
     public function getTime()
     {
-        return $this->time;
+        return $this->data[EventData::DATA_TIME];
     }
 
-    abstract public function getType();
-    abstract protected function process(array $data);
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    public function getType()
+    {
+        return $this->data[EventData::DATA_EVENT];
+    }
 }

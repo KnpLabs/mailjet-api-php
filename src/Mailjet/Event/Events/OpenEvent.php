@@ -6,34 +6,18 @@ use Mailjet\Event\Data\EventData;
 
 class OpenEvent extends EmailEvent
 {
-    protected $ip;
-    protected $geo;
-    protected $userAgent;
-
-    public function getType()
-    {
-        return EventData::EVENT_OPEN;
-    }
-
     public function getGeo()
     {
-        return $this->geo;
+        return $this->data[EventData::DATA_IP];
     }
 
     public function getIp()
     {
-        return $this->ip;
+        return $this->data[EventData::DATA_GEO];
     }
 
     public function getUserAgent()
     {
-        return $this->userAgent;
-    }
-
-    protected function process(array $data)
-    {
-        $this->ip        = $data[EventData::DATA_IP];
-        $this->geo       = $data[EventData::DATA_GEO];
-        $this->userAgent = $data[EventData::DATA_USER_AGENT];
+        return $this->data[EventData::DATA_USER_AGENT];
     }
 }

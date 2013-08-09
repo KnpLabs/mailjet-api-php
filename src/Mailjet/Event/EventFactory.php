@@ -18,8 +18,8 @@ class EventFactory implements EventFactoryInterface
 
     public function createEvent(array $data)
     {
-        $type = $this->classMap[$data[EventData::DATA_EVENT]];
+        $class = $this->classMap[$data[EventData::DATA_EVENT]];
 
-        return new $type($data);
+        return new $class($data);
     }
 }
