@@ -50,7 +50,7 @@ require_once 'vendor/autoload.php';
 use Mailjet/Api/Client;
 use Mailjet/Api/RequestApi;
 
-$client = new new Mailjet\Api\Client('api_key', 'secret_key');
+$client = new Client('api_key', 'secret_key');
 $userInfo = $client->get(RequestApi::USER_INFOS);
 
 var_dump($userInfo);
