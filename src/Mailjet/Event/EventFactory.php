@@ -4,7 +4,7 @@ namespace Mailjet\Event;
 
 use Mailjet\Event\Data\EventData;
 
-class EventFactory
+class EventFactory implements EventFactoryInterface
 {
     private $classMap = array(
         EventData::EVENT_BLOCKED => '\Mailjet\Event\Events\BlockedEvent',
