@@ -1,7 +1,8 @@
 mailjet-api-php
 =========
 
-mailjet-api-php is a PHP library for quickly consuming Mailjet API.
+`mailjet-api-php` is a PHP library for quick and simple consuming of Mailjet API.
+
 It supports both [RESTful](http://www.mailjet.com/docs/api) and [Event Tracking](https://www.mailjet.com/docs/event_tracking) APIs.
 
 ## Usage
