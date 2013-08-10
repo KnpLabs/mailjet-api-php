@@ -1,45 +1,17 @@
-# PHP wrapper for Mailjet API
+mailjet-api-php
+=========
 
-Based on [Mailjet API](http://www.mailjet.com/docs/api).
+mailjet-api-php is a PHP library for quickly consuming Mailjet API.
+It supports both [RESTful](http://www.mailjet.com/docs/api) and [Event Tracking](https://www.mailjet.com/docs/event_tracking) APIs.
 
-## Features
+## Usage
 
-* PSR-0/1/2 Compliant
-* Based on Guzzle
-* OOP Architecture
+### RESTful API
 
-## Requirements
+To ease consumption of RESTful API there's a [RequestApi](src/Mailjet/Api/RequestApi.php) helper class, which lists all available queries.
+Check [Mailjet documentation](http://www.mailjet.com/docs/api) for a detailed list of queries.
 
-* PHP >= 5.3.8
-* HTTP component of [Guzzle](http://guzzlephp.org/) library
-
-## Installation
-
-The first step to use `mailjet-api-php` is to download composer:
-
-```bash
-$ curl -s http://getcomposer.org/installer | php
-```
-
-Now setup Composer dependency with:
-
-```json
-{
-    "require": {
-        "knplabs/mailjet-api-php": "*"
-    },
-    "minimum-stability": "dev"
-}
-```
-
-Then install our dependencies using:
-```bash
-$ php composer.phar install
-```
-
-> `mailjet-api-php` follows the PSR-0 convention names for its classes, which means you can integrate `mailjet-api-php` classes loading in your own autoloader.
-
-## Basic usage of `mailjet-api-php` client
+Simple example:
 
 ```php
 <?php
@@ -74,14 +46,131 @@ var_dump($userInfo);
 //)
 ```
 
-For a full list of supported methods, see [RequestApi](src/Mailjet/Api/RequestApi.php) class
+Sending a POST request:
 
-## License
+```php
+<?php
 
-`php-api-mailjet` is licensed under the MIT License - see the LICENSE file for details
+// ... initialize client
+
+$result = $client->post(RequestApi::USER_DOMAIN_ADD, array(
+    'domain' => 'example.com'
+));
+
+var_dump($result);
+
+//(
+//    [status]    => 200
+//    [file_name] => empty_file
+//    [id]        => 123
+//)
+```
+### Event Tracking API
+
+`mailjet-api-php` provides a clean OOP interface to interact with [Event Tracking API](https://www.mailjet.com/docs/event_tracking).
+
+```php
+<?php
+
+use Mailjet/Event/EventFactory;
+
+$factory = new EventFactory();
+
+// fetch incoming data into $data array, example
+//(
+//    [event]          => open
+//    [email]          => hello@Knplabs.com
+//    [mj_contact_id]  => 123
+//    [mj_campaign_id] => 123
+//    [customcampaign] => Hello from KnpLabs
+//    [ip]             => 127.0.0.1
+//    [geo]            => US
+//    [agent]          => Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:21.0) Gecko/20100101 Firefox/21.0
+//)
+
+$event = $factory->createEvent($data);
+
+echo get_class($event); // \Mailjet\Event\Events\OpenEvent
+echo $event->getType(); // open
+echo $event->getIp();   // 127.0.0.1
+```
+
+> Note: this library is not responsible for validation of incoming data.
+> However, assuming the data is coming from Mailjet servers, it will work correctly.
+
+### Symfony2 integration
+
+You don't need a special bundle to use the RESTful API with Symfony2, you can initialize the service with a simple config:
+
+```yaml
+services:
+    knp_mailjet.api:
+        class: Mailjet\Api\Client
+        arguments: [<your_mailjet_api_key>, <your_mailjet_secret_key>]
+```
+
+And that's it, Mailjet RESTful API is now available via:
+
+```php
+<?php
+
+// ...
+
+$this->container->get('knp_mailjet.api');
+```
+
+## Installation
+
+The first step to use `mailjet-api-php` is to download Composer:
+
+```bash
+$ curl -s http://getcomposer.org/installer | php
+```
+
+Now add `mailjet-api-php` with Composer:
+
+```bash
+$ php composer.phar require knplabs/mailjet-api-php:*
+```
+
+And that's it! Composer will automatically handle the rest.
+
+Alternatively, you can manually add the dependency to `composer.json` file...
+
+```json
+{
+    "require": {
+        "knplabs/mailjet-api-php": "*"
+    },
+    "minimum-stability": "dev"
+}
+```
+
+... and then install our dependencies using:
+```bash
+$ php composer.phar install
+```
+## Requirements
+
+* PHP >= 5.3.8
+* HTTP component of [Guzzle](http://guzzlephp.org/) library
+* (optional) Symfony2 Debug Component
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md] file.
+
+## Running the Tests
+
+#### TODO
 
 ## Credits
 
-### Sponsored by
+#### Sponsored by
 
 [![KnpLabs Team](http://knplabs.pl/bundles/knpcorporate/images/logo.png)](http://knplabs.com)
+
+## License
+
+mailjet-api-php is released under the MIT License. See the bundled [LICENSE](LICENSE) file for
+details.
