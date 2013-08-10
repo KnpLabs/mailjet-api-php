@@ -114,8 +114,6 @@ And that's it, Mailjet RESTful API is now available via:
 ```php
 <?php
 
-// ...
-
 $this->container->get('knp_mailjet.api');
 ```
 
@@ -158,7 +156,7 @@ $ php composer.phar install
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md] file.
+See [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ## Running the Tests
 
