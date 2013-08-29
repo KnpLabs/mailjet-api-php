@@ -5,6 +5,8 @@ mailjet-api-php
 
 It supports both [RESTful](http://www.mailjet.com/docs/api) and [Event Tracking](https://www.mailjet.com/docs/event_tracking) APIs.
 
+[![Build Status](https://secure.travis-ci.org/KnpLabs/mailjet-api-php.png?branch=master)](http://travis-ci.org/KnpLabs/mailjet-api-php)
+
 ## Usage
 
 ### RESTful API
