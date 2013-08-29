@@ -10,7 +10,7 @@ class ClickEventTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $data = array(
-            EventData::DATA_EVENT => EventData::EVENT_BLOCKED,
+            EventData::DATA_EVENT => EventData::EVENT_CLICK,
             EventData::DATA_URL   => 'http://example.com',
         );
 

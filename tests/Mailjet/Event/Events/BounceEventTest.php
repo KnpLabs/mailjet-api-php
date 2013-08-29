@@ -10,7 +10,7 @@ class BounceEventTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $data = array(
-            EventData::DATA_EVENT       => EventData::EVENT_BLOCKED,
+            EventData::DATA_EVENT       => EventData::EVENT_BOUNCE,
             EventData::DATA_BLOCKED     => true,
             EventData::DATA_HARD_BOUNCE => false
         );
