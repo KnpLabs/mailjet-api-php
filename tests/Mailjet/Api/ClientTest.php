@@ -44,6 +44,22 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->client->setConnectionMode('bogusmode');
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testWrongGetQuery()
+    {
+        $this->client->get('bogusquery');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testWrongPostQuery()
+    {
+        $this->client->post('bogusquery');
+    }
+
     public function setUp()
     {
         $this->client = new Client('root', 'password');
