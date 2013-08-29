@@ -163,7 +163,17 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ## Running the Tests
 
-#### TODO
+To run unit tests, you'll need a set of dev dependencies you can install using Composer:
+
+```
+php composer.phar install --dev
+```
+
+Once installed, just launch the following command:
+
+```
+phpunit
+```
 
 ## Credits
 
