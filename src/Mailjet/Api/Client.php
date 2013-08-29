@@ -2,9 +2,11 @@
 
 namespace Mailjet\Api;
 
-use Guzzle\Http\Client as HttpClient;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
+use Guzzle\Http\Client as HttpClient;
+use Guzzle\Http\ClientInterface;
+
 use Mailjet\Exception\ApiServerException;
 
 class Client
@@ -143,12 +145,20 @@ class Client
     }
 
     /**
+     * @param ClientInterface $api
+     */
+    public function setApi(ClientInterface $api)
+    {
+        $this->apiClient = $api;
+    }
+
+    /**
      * @return \Guzzle\Http\Client
      */
-    private function getApi()
+    public function getApi()
     {
         if (!$this->apiClient) {
-            $this->apiClient = new HttpClient(sprintf('%s://%s/%s', $this->connectionMode, self::API_BASE_URL, self::API_VERSION));
+            $this->setApi(new HttpClient(sprintf('%s://%s/%s', $this->connectionMode, self::API_BASE_URL, self::API_VERSION)));
         }
 
         return $this->apiClient;
