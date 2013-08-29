@@ -3,6 +3,7 @@
 namespace Mailjet\Tests\Api;
 
 use Mailjet\Api\Client;
+use Mailjet\Api\RequestApi;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,6 +43,23 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testSetWrongConnectionMode()
     {
         $this->client->setConnectionMode('bogusmode');
+    }
+
+    public function testGetQuery()
+    {
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+
+        $requestMock = $this->getMock('Guzzle\Http\Message\RequestInterface');
+        $apiMock = $this->getMock('Guzzle\Http\ClientInterface');
+        $apiMock->expects($this->any())
+            ->method('get')
+            ->will($this->returnValue($requestMock))
+        ;
+        $this->client->setApi($apiMock);
+
+        $response = $this->client->get(RequestApi::USER_INFOS);
     }
 
     /**

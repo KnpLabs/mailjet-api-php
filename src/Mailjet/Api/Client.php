@@ -2,8 +2,9 @@
 
 namespace Mailjet\Api;
 
-use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
+use Guzzle\Http\Message\RequestInterface;
+
 use Guzzle\Http\Client as HttpClient;
 use Guzzle\Http\ClientInterface;
 
@@ -168,7 +169,7 @@ class Client
      * @param Request $request
      * @param array   $options
      */
-    private function prepareRequest(Request $request, $options = array())
+    private function prepareRequest(RequestInterface $request, $options = array())
     {
         $request->setAuth($this->apiKey, $this->secretKey);
 
