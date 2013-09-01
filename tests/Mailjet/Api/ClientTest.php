@@ -47,19 +47,61 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testGetQuery()
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
-        );
-
-        $requestMock = $this->getMock('Guzzle\Http\Message\RequestInterface');
-        $apiMock = $this->getMock('Guzzle\Http\ClientInterface');
-        $apiMock->expects($this->any())
-            ->method('get')
-            ->will($this->returnValue($requestMock))
-        ;
+        $data = array('status' => 200, 'added'  => 0);
+        $responseMock = $this->getResponseMock(true, array($data), 'json');
+        $requestMock = $this->getRequestMock($responseMock);
+        $apiMock = $this->getApiMock($requestMock, 'get');
         $this->client->setApi($apiMock);
 
-        $response = $this->client->get(RequestApi::USER_INFOS);
+        $response = $this->client->get(RequestApi::USER_DOMAIN_LIST, array(
+            'domain' => 'http://example.com'
+        ));
+
+        $this->assertEquals($response, $data);
+    }
+
+    public function testGetQueryAnotherFormat()
+    {
+        $data = '<h1>Response body</h1>';
+        $responseMock = $this->getResponseMock(true, $data, 'getBody');
+        $requestMock = $this->getRequestMock($responseMock);
+        $apiMock = $this->getApiMock($requestMock, 'get');
+        $this->client->setApi($apiMock);
+        $this->client->setOutputFormat(Client::FORMAT_HTML);
+
+        $response = $this->client->get(RequestApi::USER_DOMAIN_LIST, array(
+            'domain' => 'http://example.com'
+        ));
+
+        $this->assertEquals($response, $data);
+    }
+
+    /**
+     * @expectedException \Mailjet\Exception\ApiServerException
+     */
+    public function testGetQueryNotSuccesful()
+    {
+        $responseMock = $this->getResponseMock(false, array(), 'json');
+        $requestMock = $this->getRequestMock($responseMock);
+        $apiMock = $this->getApiMock($requestMock, 'get');
+        $this->client->setApi($apiMock);
+
+        $this->client->get(RequestApi::USER_INFOS);
+    }
+
+    public function testPostQuery()
+    {
+        $data = array('status' => 200, 'apiKey'  => 123456, 'secretKey' => 654321);
+        $responseMock = $this->getResponseMock(true, array($data), 'json');
+        $requestMock = $this->getRequestMock($responseMock);
+        $apiMock = $this->getApiMock($requestMock, 'post');
+        $this->client->setApi($apiMock);
+
+        $response = $this->client->post(RequestApi::API_KEY_ADD, array(
+            'name' => 'Secret Key'
+        ));
+
+        $this->assertEquals($response, $data);
     }
 
     /**
@@ -81,5 +123,50 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->client = new Client('root', 'password');
+    }
+
+    protected function getResponseMock($isSuccess, $data, $dataFetchMethod)
+    {
+        $responseMock = $this->getMockBuilder('Guzzle\Http\Message\Response')
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $responseMock->expects($this->any())
+            ->method('isSuccessful')
+            ->will($this->returnValue($isSuccess))
+        ;
+        $responseMock->expects($this->any())
+            ->method($dataFetchMethod)
+            ->will($this->returnValue($data));
+        ;
+
+        return $responseMock;
+    }
+
+    protected function getRequestMock($response)
+    {
+        $query = new \Guzzle\Http\QueryString();
+        $requestMock = $this->getMock('Guzzle\Http\Message\RequestInterface');
+        $requestMock->expects($this->any())
+            ->method('getQuery')
+            ->will($this->returnValue($query))
+        ;
+        $requestMock->expects($this->any())
+            ->method('send')
+            ->will($this->returnValue($response))
+        ;
+
+        return $requestMock;
+    }
+
+    protected function getApiMock($request, $method)
+    {
+        $apiMock = $this->getMock('Guzzle\Http\ClientInterface');
+        $apiMock->expects($this->any())
+            ->method($method)
+            ->will($this->returnValue($request))
+        ;
+
+        return $apiMock;
     }
 }
