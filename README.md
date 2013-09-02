@@ -120,6 +120,8 @@ And that's it, Mailjet RESTful API is now available via:
 $this->container->get('knp_mailjet.api');
 ```
 
+However, if you need both RESTful and Event API support, then there's [KnpMailjetBundle](https://github.com/KnpLabs/KnpMailjetBundle).
+
 ## Installation
 
 The first step to use `mailjet-api-php` is to download Composer:
