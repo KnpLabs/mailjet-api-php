@@ -143,9 +143,8 @@ Alternatively, you can manually add the dependency to `composer.json` file...
 ```json
 {
     "require": {
-        "knplabs/mailjet-api-php": "*"
-    },
-    "minimum-stability": "dev"
+        "knplabs/mailjet-api-php": "~1.0"
+    }
 }
 ```
 
