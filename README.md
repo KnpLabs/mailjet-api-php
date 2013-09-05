@@ -5,7 +5,7 @@ mailjet-api-php
 
 It supports both [RESTful](http://www.mailjet.com/docs/api) and [Event Tracking](https://www.mailjet.com/docs/event_tracking) APIs.
 
-[![Build Status](https://secure.travis-ci.org/KnpLabs/mailjet-api-php.png?branch=master)](http://travis-ci.org/KnpLabs/mailjet-api-php) [![Latest Stable Version](https://poser.pugx.org/knplabs/mailjet-api-php/version.png)](https://packagist.org/packages/knplabs/mailjet-api-php) [![Composer Downloads](https://poser.pugx.org/knplabs/mailjet-api-php/d/total.png)](https://packagist.org/packages/knplabs/mailjet-api-php)
+[![Build Status](https://secure.travis-ci.org/KnpLabs/mailjet-api-php.png?branch=master)](http://travis-ci.org/KnpLabs/mailjet-api-php) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b7bb0aa1-402e-47d4-93d0-d957980000b3/mini.png)](https://insight.sensiolabs.com/projects/b7bb0aa1-402e-47d4-93d0-d957980000b3) [![Latest Stable Version](https://poser.pugx.org/knplabs/mailjet-api-php/version.png)](https://packagist.org/packages/knplabs/mailjet-api-php) [![Composer Downloads](https://poser.pugx.org/knplabs/mailjet-api-php/d/total.png)](https://packagist.org/packages/knplabs/mailjet-api-php)
 
 ## Usage
 
