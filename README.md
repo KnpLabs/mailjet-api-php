@@ -13,8 +13,16 @@ It supports both [RESTful](http://www.mailjet.com/docs/api) and [Event Tracking]
 
 ## Usage
 
-### RESTful API
+### RESTful API - OOP wrappers
 
+This library provides OOP wrappers to most (all) API endpoints, that are located under [Mailjet/Api/Request]((src/Mailjet/Api/Request) namespace. These include:
+
+* [Api](src/Mailjet/Api/Request/Api.php) class for sending [Api](http://www.mailjet.com/docs/api/api) related calls
+* [User](src/Mailjet/Api/Request/User.php) class for sending [User](http://www.mailjet.com/docs/api/user) related calls
+
+### RESTful API - Client
+
+In addition to using wrappers, you can obviously also use the client directly to make API requests on lower level.
 To ease consumption of RESTful API there's a [RequestApi](src/Mailjet/Api/RequestApi.php) helper class, which lists all available queries.
 Check [Mailjet documentation](http://www.mailjet.com/docs/api) for a detailed list of queries.
 
@@ -181,6 +189,8 @@ phpunit
 ```
 
 ## Credits
+
+OOP wrappers idea was originally implemented by [David Guyon](https://github.com/dguyon) in [his version of the client](https://github.com/dguyon/Mailjet).
 
 #### Sponsored by
 
