@@ -396,6 +396,7 @@ final class RequestApi
             self::API_KEY_UPDATE,
 
             self::USER_DOMAIN_ADD,
+            self::USER_DOMAIN_STATUS,
             self::USER_SENDER_ADD,
             self::USER_SENDER_STATUS,
             self::USER_TRACKING_UPDATE,
