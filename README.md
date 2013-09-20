@@ -132,6 +132,23 @@ And that's it, Mailjet RESTful API is now available via:
 $this->container->get('knp_mailjet.api');
 ```
 
+And to initialize higher level OOP wrappers:
+
+```yaml
+services:
+    knp_mailjet.api.request.user:
+        class: Mailjet\Api\Request\User
+        arguments: [@knp_mailjet.api]
+
+    # ... other wrappers definitions
+```
+
+```php
+<?php
+
+$this->container->get('knp_mailjet.api.request.user')->getInfo();
+```
+
 However, if you need both RESTful and Event API support, then there's [KnpMailjetBundle](https://github.com/KnpLabs/KnpMailjetBundle).
 
 ## Installation
