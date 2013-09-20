@@ -15,6 +15,12 @@ It supports both [RESTful](http://www.mailjet.com/docs/api) and [Event Tracking]
 
 ### RESTful API - OOP wrappers
 
+
+This library provides OOP wrappers to most (all) API endpoints, that are located under [Mailjet/Api/Request]((src/Mailjet/Api/Request) namespace. These include:
+
+* [Api](src/Mailjet/Api/Request/Api.php) class for sending [Api](http://www.mailjet.com/docs/api/api) related calls
+* [User](src/Mailjet/Api/Request/User.php) class for sending [User](http://www.mailjet.com/docs/api/user) related calls
+
 Simple example:
 
 ```php
@@ -41,11 +47,6 @@ var_dump($userInfo);
 //    ....
 //)
 ```
-
-This library provides OOP wrappers to most (all) API endpoints, that are located under [Mailjet/Api/Request]((src/Mailjet/Api/Request) namespace. These include:
-
-* [Api](src/Mailjet/Api/Request/Api.php) class for sending [Api](http://www.mailjet.com/docs/api/api) related calls
-* [User](src/Mailjet/Api/Request/User.php) class for sending [User](http://www.mailjet.com/docs/api/user) related calls
 
 ### RESTful API - Client
 
