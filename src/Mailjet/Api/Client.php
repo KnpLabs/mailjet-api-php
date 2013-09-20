@@ -10,21 +10,8 @@ use Guzzle\Http\ClientInterface;
 
 use Mailjet\Exception\ApiServerException;
 
-class Client
+class Client implements MailjetClientInterface
 {
-    const API_VERSION  = '0.1';
-    const API_BASE_URL = 'api.mailjet.com';
-
-    const FORMAT_CSV       = 'csv';
-    const FORMAT_XML       = 'xml';
-    const FORMAT_HTML      = 'html';
-    const FORMAT_JSON      = 'json';
-    const FORMAT_SERIALIZE = 'serialize';
-    const FORMAT_ARRAY     = 'array';
-
-    const CONNECTION_NORMAL = 'http';
-    const CONNECTION_SECURE = 'https';
-
     private $apiClient;
 
     private $apiKey;
@@ -145,9 +132,6 @@ class Client
         return $this->outputFormat;
     }
 
-    /**
-     * @param ClientInterface $api
-     */
     public function setApi(ClientInterface $api)
     {
         $this->apiClient = $api;
@@ -165,10 +149,6 @@ class Client
         return $this->apiClient;
     }
 
-    /**
-     * @param Request $request
-     * @param array   $options
-     */
     private function prepareRequest(RequestInterface $request, $options = array())
     {
         $request->setAuth($this->apiKey, $this->secretKey);
@@ -180,12 +160,6 @@ class Client
         }
     }
 
-    /**
-     * @param  Response     $response
-     * @return string|array
-     *
-     * @throws ApiServerException
-     */
     private function processResponse(Response $response)
     {
         if (!$response->isSuccessful()) {
