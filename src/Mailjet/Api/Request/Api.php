@@ -7,6 +7,8 @@ use Mailjet\Api\RequestApi;
 
 /**
  * Higher-level OOP wrapper over Mailjet Client for Api related requests
+ * 
+ * @link http://www.mailjet.com/docs/api/api
  *
  * Based on https://github.com/dguyon/Mailjet
  */

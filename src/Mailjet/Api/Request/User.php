@@ -8,6 +8,8 @@ use Mailjet\Api\RequestApi;
 /**
  * Higher-level OOP wrapper over Mailjet Client for User related requests
  *
+ * @link http://www.mailjet.com/docs/api/user
+ *
  * Based on https://github.com/dguyon/Mailjet
  */
 class User
