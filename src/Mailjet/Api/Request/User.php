@@ -32,7 +32,7 @@ class User
     /**
      * @link http://www.mailjet.com/docs/api/user/domainlist
      */
-    public function listDomains()
+    public function getDomains()
     {
         return $this->client->get(RequestApi::USER_DOMAIN_LIST);
     }
@@ -71,7 +71,7 @@ class User
     /**
      * @link http://www.mailjet.com/docs/api/user/senderlist
      */
-    public function listSenders()
+    public function getSenders()
     {
         return $this->client->get(RequestApi::USER_SENDER_LIST);
     }

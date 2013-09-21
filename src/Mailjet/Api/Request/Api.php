@@ -65,7 +65,7 @@ class Api
     /**
      * @link http://www.mailjet.com/docs/api/api/keylist
      */
-    public function listKeys($key = '', $status = '', $name = '', $type = null, $isActive = null)
+    public function getKeys($key = '', $status = '', $name = '', $type = null, $isActive = null)
     {
         $options = array(
             'api_key'       => $key,
@@ -97,7 +97,7 @@ class Api
     /**
      * @link http://www.mailjet.com/docs/api/api/keysecretchange
      */
-    public function changeSecretForKey($key)
+    public function resetSecretForKey($key)
     {
         return $this->client->post(RequestApi::API_KEY_SECRET_CHANGE, array(
             'apiKey' => $key
