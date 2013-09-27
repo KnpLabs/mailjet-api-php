@@ -167,10 +167,7 @@ class Client implements MailjetClientInterface
         }
 
         if (self::FORMAT_ARRAY === $this->outputFormat) {
-            $data = $response->json();
-
-            // data format: array(status => status, function => data)
-            return array_pop($data);
+            return $response->json();
         }
 
         return $response->getBody(true);

@@ -48,7 +48,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetQuery()
     {
         $data = array('status' => 200, 'added'  => 0);
-        $responseMock = $this->getResponseMock(true, array($data), 'json');
+        $responseMock = $this->getResponseMock(true, $data, 'json');
         $requestMock = $this->getRequestMock($responseMock);
         $apiMock = $this->getApiMock($requestMock, 'get');
         $this->client->setApi($apiMock);
@@ -92,7 +92,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testPostQuery()
     {
         $data = array('status' => 200, 'apiKey'  => 123456, 'secretKey' => 654321);
-        $responseMock = $this->getResponseMock(true, array($data), 'json');
+        $responseMock = $this->getResponseMock(true, $data, 'json');
         $requestMock = $this->getRequestMock($responseMock);
         $apiMock = $this->getApiMock($requestMock, 'post');
         $this->client->setApi($apiMock);
