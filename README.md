@@ -190,7 +190,7 @@ $ curl -s http://getcomposer.org/installer | php
 Now add `mailjet-api-php` with Composer:
 
 ```bash
-$ php composer.phar require knplabs/mailjet-api-php:*
+$ php composer.phar require knplabs/mailjet-api-php:1.*
 ```
 
 And that's it! Composer will automatically handle the rest.
@@ -200,7 +200,7 @@ Alternatively, you can manually add the dependency to `composer.json` file...
 ```json
 {
     "require": {
-        "knplabs/mailjet-api-php": "~1.0"
+        "knplabs/mailjet-api-php": "1.*"
     }
 }
 ```
