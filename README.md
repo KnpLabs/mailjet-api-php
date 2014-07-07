@@ -10,6 +10,7 @@ It supports both [RESTful](http://www.mailjet.com/docs/api) and [Event Tracking]
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/KnpLabs/mailjet-api-php/badges/quality-score.png?s=46285297cb5c9acface8efbe96991f622923374f)](https://scrutinizer-ci.com/g/KnpLabs/mailjet-api-php/)
 [![Latest Stable Version](https://poser.pugx.org/knplabs/mailjet-api-php/version.png)](https://packagist.org/packages/knplabs/mailjet-api-php)
 [![Composer Downloads](https://poser.pugx.org/knplabs/mailjet-api-php/d/total.png)](https://packagist.org/packages/knplabs/mailjet-api-php)
+[![HHVM Status](http://hhvm.h4cc.de/badge/knplabs/mailjet-api-php.png)](http://hhvm.h4cc.de/package/knplabs/mailjet-api-php)
 
 ## Usage
 
