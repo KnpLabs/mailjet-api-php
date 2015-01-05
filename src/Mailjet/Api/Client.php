@@ -153,10 +153,17 @@ class Client implements MailjetClientInterface
     {
         $request->setAuth($this->apiKey, $this->secretKey);
 
-        $query = $request->getQuery();
-        $query->add('output', $this->getRealOutputFormat());
-        foreach ($options as $option => $value) {
-            $query->add($option, $value);
+        if ($request->getMethod() == RequestInterface::POST) {
+            $request->setPostField('output', $this->getRealOutputFormat());
+            foreach ($options as $option => $value) {
+                $request->setPostField($option, $value);
+            }
+        } else {
+            $query = $request->getQuery();
+            $query->add('output', $this->getRealOutputFormat());
+            foreach ($options as $option => $value) {
+                $query->add($option, $value);
+            }
         }
     }
 
