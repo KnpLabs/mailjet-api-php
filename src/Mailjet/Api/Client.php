@@ -67,7 +67,7 @@ class Client implements MailjetClientInterface
             throw new \InvalidArgumentException('Unsupported API query for POST method: ' . $apiQuery);
         }
 
-        $request = $this->getApi()->post($apiQuery);
+        $request = $this->getApi()->post($apiQuery, null, $options);
 
         $this->prepareRequest($request, $options);
 
