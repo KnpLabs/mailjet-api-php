@@ -34,8 +34,8 @@ class Client implements MailjetClientInterface
      * If array is set as output format (as by default), then response is parsed
      * Otherwise it's returned as a raw string
      *
-     * @param $apiQuery For list of available queries @see \Mailjet\Api\RequestApi
-     * @param array $options
+     * @param string $apiQuery For list of available queries @see \Mailjet\Api\RequestApi
+     * @param array  $options
      *
      * @return string|array
      *
