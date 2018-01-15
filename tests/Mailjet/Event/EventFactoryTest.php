@@ -61,9 +61,9 @@ class EventFactoryTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 array(
-                    EventData::DATA_EVENT => EventData::EVENT_TYPOFIX
+                    EventData::DATA_EVENT => EventData::EVENT_SENT
                 ),
-                '\Mailjet\Event\Events\TypofixEvent'
+                '\Mailjet\Event\Events\SentEvent'
             ),
             array(
                 array(
