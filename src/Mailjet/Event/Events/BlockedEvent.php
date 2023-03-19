@@ -3,8 +3,9 @@
 namespace Mailjet\Event\Events;
 
 use Mailjet\Event\Data\EventData;
+use Mailjet\Event\Event;
 
-class BlockedEvent extends EmailEvent
+class BlockedEvent extends Event
 {
     public function getError()
     {
@@ -12,7 +13,7 @@ class BlockedEvent extends EmailEvent
     }
 
     /**
-     * @link https://www.mailjet.com/docs/event_tracking#errortable
+     * @link https://dev.mailjet.com/guides/#possible-values-for-errors
      */
     public function getErrorExplanation()
     {

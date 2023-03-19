@@ -3,8 +3,9 @@
 namespace Mailjet\Event\Events;
 
 use Mailjet\Event\Data\EventData;
+use Mailjet\Event\Event;
 
-class OpenEvent extends EmailEvent
+class OpenEvent extends Event
 {
     public function getGeo()
     {

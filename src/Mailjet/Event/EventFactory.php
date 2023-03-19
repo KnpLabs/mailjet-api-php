@@ -11,8 +11,8 @@ class EventFactory implements EventFactoryInterface
         EventData::EVENT_BOUNCE  => '\Mailjet\Event\Events\BounceEvent',
         EventData::EVENT_CLICK   => '\Mailjet\Event\Events\ClickEvent',
         EventData::EVENT_OPEN    => '\Mailjet\Event\Events\OpenEvent',
+        EventData::EVENT_SENT    => '\Mailjet\Event\Events\SentEvent',
         EventData::EVENT_SPAM    => '\Mailjet\Event\Events\SpamEvent',
-        EventData::EVENT_TYPOFIX => '\Mailjet\Event\Events\TypofixEvent',
         EventData::EVENT_UNSUB   => '\Mailjet\Event\Events\UnsubEvent'
     );
 
